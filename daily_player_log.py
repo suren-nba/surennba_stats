@@ -46,7 +46,6 @@ try:
         except Exception as inner_e:
             print(f"  -> 获取 {st} 时出现异常 (通常是因为该阶段尚未开始)，跳过。")
 
-    # 如果什么都没抓到，抛出异常
     if len(all_frames) == 0:
         raise ValueError("所有赛季类型均未抓取到数据，请检查网络！")
 
@@ -60,11 +59,11 @@ try:
     # 1. 字段名全小写，方便后续分析
     df.columns = df.columns.str.lower()
     
-    # 2. 处理日期：将美国东部时间 (ET) 转换为国内体感时间 (+1天)
+    # 2. 处理日期：将美国东部时间 (ET) 转换为国内时间 (+1天)
     df['game_date'] = pd.to_datetime(df['game_date'])
     df['game_date'] = df['game_date'] + pd.Timedelta(days=1)
     
-    # 3. 强迫症排序：确保最新日期的比赛永远在第一行
+    # 3. 确保最新日期的比赛永远在第一行
     df = df.sort_values(by="game_date", ascending=False)
     
     # 4. 转换回标准的 YYYY-MM-DD 字符串
