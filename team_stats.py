@@ -100,4 +100,3 @@ for task in api_tasks:
         print(f" 发生异常: {e}\n" + "-" * 50)
 
 print("\n任务完成！")
-input("按回车键退出...")
