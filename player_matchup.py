@@ -6,7 +6,7 @@ from nba_api.stats.endpoints import boxscorematchupsv3
 from nba_api.stats.static import teams
 
 # ==============================================================================
-# 1. 基础设置与跨平台相对路径
+# 1. 基础设置与相对路径
 # ==============================================================================
 # 自动在当前运行目录下创建 data/matchups 文件夹
 output_dir = os.path.join(os.getcwd(), "data", "matchups")
@@ -96,7 +96,7 @@ def fetch_playoffs_by_game():
         print("提示: 雷达文件内无季后赛记录，说明季后赛尚未开始，安全跳过。")
         return pd.DataFrame()
 
-    print(f"--> 雷达锁定: 共检测到 {len(playoff_games)} 场季后赛，开始逐场请求...")
+    print(f"-->检测到 {len(playoff_games)} 场季后赛，开始逐场请求...")
     
     all_po_matchups = []
     for i, gid in enumerate(playoff_games):
@@ -136,7 +136,7 @@ need_fetch_regular = True
 
 if os.path.exists(po_file_path):
     print("--> 本地已存在 [季后赛] 数据。")
-    print("--> 判定处于季后赛时段：将冻结常规赛耗时抓取，仅更新季后赛新场次。")
+    print("--> 判定处于季后赛时段：将停止常规赛抓取，仅更新季后赛场次。")
     need_fetch_regular = False
 else:
     print("--> 本地无季后赛对位数据。准备双轨并进...")
