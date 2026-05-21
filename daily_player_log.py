@@ -70,7 +70,7 @@ try:
     df['game_date'] = df['game_date'].dt.strftime('%Y-%m-%d')
     
     # ==============================================================================
-    # 第四部分：本地持久化保存 
+    # 第四部分：本地持久化保存 (跨平台相对路径 + Excel 格式)
     # ==============================================================================
     
     # 核心修改：使用相对路径，自动在脚本所在目录下创建一个 "data" 文件夹
@@ -78,19 +78,20 @@ try:
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
         
-    # 保存为 .csv 格式
-    file_path = os.path.join(target_dir, "nba_daily_live.csv")
+    # 保存为 .xlsx 格式
+    file_path = os.path.join(target_dir, "nba_daily_live.xlsx")
     
-    # 输出到 CSV 
-    df.to_csv(file_path, index=False, encoding='utf_8_sig')
+    # 输出到 Excel (注意：需要确保本地环境安装了 openpyxl 库)
+    df.to_excel(file_path, index=False)
     
     print("-" * 50)
     print("Success: Data synchronization completed successfully.")
     print(f"Total Rows Ingested: {len(df)}")
     print(f"Latest Game Date: {df['game_date'].iloc[0]}")
-    print(f"Format: Comma-Separated Values (.csv)")
+    print(f"Format: Microsoft Excel (.xlsx)")
     print(f"Destination: {file_path}")
     print("-" * 50)
+
 except Exception as e:
     print("-" * 50)
     print(f"Error: Data fetch failed.")
